@@ -1,46 +1,78 @@
-# Astro Starter Kit: Basics
 
-```sh
-npm create astro@latest -- --template basics
+---
+
+# 🍝 Menú Digital - Restaurante Italiano
+
+> Proyecto web responsive para mostrar el menú de un restaurante italiano, desarrollado con Astro, TailwindCSS y Alpine.js.
+
+## ✨ Características
+
+- Diseño mobile-first y totalmente responsive.
+- Filtrado de productos por categoría.
+- Modal con detalles de cada producto.
+- Imágenes optimizadas y visualmente atractivas.
+- Código limpio y fácil de personalizar.
+
+## 🚀 Estructura del Proyecto
+
 ```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
 /
 ├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+│   ├── favicon.svg
+│   ├── hero-pattern.jpg
+│   └── vite.svg
+├── src/
+│   ├── assets/         # Imágenes de productos
+│   ├── components/     # Componentes Astro (Header, Footer, Menu, etc.)
+│   ├── data/           # Datos de productos
+│   ├── layouts/        # Layout principal
+│   ├── pages/          # Páginas del sitio
+│   └── styles/         # Estilos globales
+├── package.json
+└── tailwind.config.mjs
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## 🧑‍💻 Instalación y uso
 
-## 🧞 Commands
+1. Instala las dependencias:
+   ```sh
+   npm install
+   ```
+2. Inicia el servidor de desarrollo:
+   ```sh
+   npm run dev
+   ```
+3. Abre [http://localhost:4321](http://localhost:4321) en tu navegador.
 
-All commands are run from the root of the project, from a terminal:
+## 🛠️ Personalización
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+- Edita los productos en products.ts.
+- Cambia imágenes en assets.
+- Modifica colores y estilos en tailwind.config.mjs y global.css.
+- Ajusta el layout en Layout.astro.
 
-## 👀 Want to learn more?
+## 🖼️ Tecnologías
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- [Astro](https://astro.build/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [Alpine.js](https://alpinejs.dev/) (para interactividad del modal)
+
+## 📦 Comandos útiles
+
+| Comando           | Acción                                      |
+|-------------------|---------------------------------------------|
+| `npm install`     | Instala dependencias                        |
+| `npm run dev`     | Servidor de desarrollo                      |
+| `npm run build`   | Compila el sitio para producción            |
+| `npm run preview` | Previsualiza el sitio compilado             |
+
+## 📄 Licencia
+
+MIT
+
+---
+
+Desarrollado con ❤️ para restaurantes modernos.
+
+---
+
