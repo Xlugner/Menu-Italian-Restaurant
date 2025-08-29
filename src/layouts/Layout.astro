@@ -20,21 +20,56 @@ import "../styles/global.css";
     <Header />
     <main>
       <slot />
+      <!-- Botón flotante para volver arriba -->
+      <button
+        id="scrollToTopBtn"
+        class="fixed bottom-6 right-4 z-50 bg-secondary text-white rounded-full shadow-lg p-3 sm:p-4 transition-opacity opacity-0 pointer-events-none hover:bg-primary hover:scale-110"
+        aria-label="Volver arriba"
+        onclick="window.scrollTo({top:0,behavior:'smooth'})"
+        style="font-size:1.5rem;"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          ><path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M5 15l7-7 7 7"></path></svg
+        >
+      </button>
+      <script>
+        // Mostrar/ocultar el botón al hacer scroll
+        window.addEventListener("scroll", function () {
+          const btn = document.getElementById("scrollToTopBtn");
+          if (!btn) return;
+          if (window.scrollY > 200) {
+            btn.classList.remove("opacity-0", "pointer-events-none");
+            btn.classList.add("opacity-100");
+          } else {
+            btn.classList.add("opacity-0", "pointer-events-none");
+            btn.classList.remove("opacity-100");
+          }
+        });
+      </script>
+      <Footer />
     </main>
-    <Footer />
+    <script
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+      defer></script>
   </body>
-  <script
-    src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
-    defer></script>
-</html>
 
-<style is:global>
-  html {
-    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  }
-  body {
-    min-height: 100vh;
-    background: #fff;
-  }
-</style>
+  <style is:global>
+    html {
+      font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    }
+    body {
+      min-height: 100vh;
+      background: #fff;
+    }
+  </style>
+</html>

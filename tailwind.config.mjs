@@ -8,7 +8,7 @@ export default {
 				secondary: '#db1d00'
 			},
 			backgroundImage:{
-				'hero-pattern': 'url(/hero-pattern.jpg)'
+				'hero-pattern': 'url(/hero-pattern.webp)'
 			} 
 		},
 	},
