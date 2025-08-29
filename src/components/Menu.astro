@@ -1,0 +1,174 @@
+---
+import type { Product, ProductCategory } from "../data/products";
+import { Image } from "astro:assets";
+
+type Category = { name: string };
+
+interface Props {
+  categories: Category[];
+  productsByCategory: ProductCategory[];
+}
+
+const { categories, productsByCategory } = Astro.props as Props;
+---
+
+<section
+  class="px-2 sm:px-4 mt-2 sm:mt-4 max-w-2xl mx-auto"
+  x-data="{
+    modalOpen: false,
+    modalName: '',
+    modalInfo: '',
+    modalPrice: '',
+    modalImage: '',
+    openModal(e) {
+      const el = e.currentTarget;
+      this.modalName = el.dataset.name;
+      this.modalInfo = el.dataset.info;
+      this.modalPrice = el.dataset.price;
+      this.modalImage = el.dataset.image;
+      this.modalOpen = true;
+    },
+    closeModal() {
+      this.modalOpen = false;
+    }
+  }"
+  @close-modal.window="closeModal()"
+>
+  <h2 class="text-base sm:text-lg font-semibold mb-2 text-center">
+    Categorías
+  </h2>
+  <div
+    id="cat-filtros"
+    class="flex gap-2 overflow-x-auto pb-2 mb-4 scrollbar-hide"
+  >
+    <button
+      type="button"
+      class="px-3 py-1 rounded-full border text-sm whitespace-nowrap bg-secondary text-black font-bold"
+      data-cat="Todos"
+    >
+      Todos
+    </button>
+    {
+      categories.map((cat: Category) => (
+        <button
+          type="button"
+          class="px-3 py-1 rounded-full border text-sm whitespace-nowrap bg-gray-100 text-gray-700"
+          data-cat={cat.name}
+        >
+          {cat.name}
+        </button>
+      ))
+    }
+  </div>
+  <div id="cat-productos">
+    {
+      productsByCategory.map((cat: ProductCategory) => (
+        <div class="mb-6 cat-group" data-cat={cat.category}>
+          <h3 class="text-md font-bold mb-2">{cat.category}</h3>
+          <div class="grid grid-cols-2 gap-2 sm:gap-4">
+            {cat.products.map((prod: Product) => (
+              <div
+                class="bg-white rounded-lg overflow-hidden shadow cursor-pointer transition-transform active:scale-95"
+                @click="openModal($event)"
+                data-name={prod.name}
+                data-info={prod.info}
+                data-price={prod.price}
+                data-image={
+                  typeof prod.image === "object" && prod.image.src
+                    ? prod.image.src
+                    : prod.image
+                }
+              >
+                <Image
+                  src={prod.image}
+                  alt={prod.name}
+                  class="w-full h-24 sm:h-28 object-cover bg-white flex items-center justify-center"
+                  widths={[400]}
+                  height={128}
+                  sizes="(max-width: 400px) 100vw, 400px"
+                  loading="lazy"
+                />
+                <div class="p-1 sm:p-2">
+                  <p class="font-bold text-xs sm:text-base">{prod.name}</p>
+                  <p class="text-gray-600 text-xs sm:text-sm mb-1">
+                    {prod.info}
+                  </p>
+                  <p class="text-secondary font-bold text-sm sm:text-base">
+                    ${prod.price.toFixed(2)}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+  <!-- Modal inline controlado por Alpine.js -->
+  <div
+    x-show="modalOpen"
+    x-transition.opacity.duration.200ms
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-2"
+    @click.self="closeModal()"
+    style="backdrop-filter: blur(2px);"
+  >
+    <div
+      class="bg-white rounded-lg shadow-lg w-full max-w-xs sm:max-w-sm relative"
+    >
+      <button
+        class="absolute top-2 right-2 text-gray-500 hover:text-black text-2xl font-bold"
+        @click="closeModal()"
+        aria-label="Cerrar">×</button
+      >
+      <img
+        :src="modalImage.startsWith('/src/assets') || modalImage.startsWith('/public') || modalImage.startsWith('/') ? modalImage : '/src/assets/' + modalImage"
+        :alt="modalName + ' [' + modalImage + ']'"
+        class="w-full h-40 sm:h-48 object-contain bg-white rounded-t-lg flex items-center justify-center"
+        style="object-fit:contain;"
+        @error="console.log('No se pudo cargar la imagen:', modalImage)"
+      />
+      <div class="p-3 sm:p-4">
+        <h2
+          class="text-lg sm:text-xl font-bold mb-2 text-center"
+          x-text="modalName"
+        >
+        </h2>
+        <p
+          class="text-gray-600 text-sm sm:text-base mb-2 text-center"
+          x-text="modalInfo"
+        >
+        </p>
+        <p
+          class="text-secondary font-bold text-base sm:text-lg mb-2 text-center"
+        >
+          $<span x-text="Number(modalPrice).toFixed(2)"></span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  const filtroBtns = document.querySelectorAll("#cat-filtros button[data-cat]");
+  const grupos = document.querySelectorAll(".cat-group");
+  filtroBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const cat = btn.getAttribute("data-cat");
+      filtroBtns.forEach((b) =>
+        b.classList.remove("bg-secondary", "text-black", "font-bold")
+      );
+      btn.classList.add("bg-secondary", "text-black", "font-bold");
+      if (cat === "Todos") {
+        grupos.forEach((g) => (g.style.display = ""));
+      } else {
+        grupos.forEach((g) => {
+          if (g.getAttribute("data-cat") === cat) {
+            g.style.display = "";
+          } else {
+            g.style.display = "none";
+          }
+        });
+      }
+    });
+  });
+</script>

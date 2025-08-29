@@ -1,0 +1,43 @@
+---
+const now = new Date();
+const hour = now.getHours();
+const isOpen = hour >= 8 && hour < 18;
+---
+
+<header
+  class="w-full max-w-[1440px] mx-auto px-2 sm:px-4 py-2 sm:py-4 flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-0"
+>
+  <p class="w-auto text-2xl sm:text-4xl text-primary text-center sm:text-left">
+    D'<span class="text-secondary px-2 sm:px-3 ml-1 rounded-lg">Rossi</span>
+  </p>
+
+  <form class="flex w-full max-w-xs sm:max-w-sm mx-auto sm:mx-0">
+    <input
+      type="text"
+      placeholder="Buscar productos..."
+      class="w-full px-2 sm:px-3 py-1 rounded-lg bg-green-200 text-primary placeholder-primary focus:outline-none focus:ring-2 focus:ring-green-600 text-sm sm:text-base"
+      name="search"
+      autocomplete="off"
+    />
+  </form>
+
+  <div class="flex items-center space-x-2 px-2 mt-2 sm:mt-0">
+    {
+      isOpen ? (
+        <span class="flex items-center text-primary font-semibold">
+          <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+            <circle cx="10" cy="10" r="10" />
+          </svg>
+          Abierto
+        </span>
+      ) : (
+        <span class="flex items-center text-secondary font-semibold">
+          <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+            <circle cx="10" cy="10" r="10" />
+          </svg>
+          Cerrado
+        </span>
+      )
+    }
+  </div>
+</header>

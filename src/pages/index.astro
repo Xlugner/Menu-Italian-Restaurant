@@ -1,0 +1,19 @@
+---
+import HeroSection from '@components/HeroSection.astro';
+import Layout from '@layouts/Layout.astro';
+import Menu from '@components/Menu.astro';
+import { productsByCategory } from "../data/products";
+
+const categories = productsByCategory.map((cat) => ({ name: cat.category }));
+---
+
+<Layout>
+	<HeroSection/>
+	<section id="menu" class="scroll-mt-20">
+    <h2 class="sr-only">Menú</h2>
+	<Menu
+	categories={categories}
+    productsByCategory={productsByCategory}
+	/>
+	</section>
+</Layout>
