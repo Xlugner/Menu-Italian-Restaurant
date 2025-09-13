@@ -20,6 +20,41 @@
   .btn-primary:hover {
     @apply transform hover:-translate-y-1 hover:shadow-xl hover:from-green-600 hover:to-red-500;
   }
+
+  /* Background personalizado para restaurante italiano */
+  .italian-bg {
+    background: linear-gradient(135deg, 
+      #fef7ed 0%,    /* orange-50 */
+      #fef2f2 25%,   /* red-50 */
+      #f0fdf4 50%,   /* green-50 */
+      #fefce8 75%,   /* yellow-50 */
+      #fef7ed 100%   /* orange-50 */
+    );
+    min-height: 100vh;
+    position: relative;
+  }
+
+  .italian-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(circle at 20% 80%, rgba(251, 146, 60, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(34, 197, 94, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(239, 68, 68, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* Estilos para las cards de menú mejoradas */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 }
 
 @layer utilities {
@@ -74,17 +109,17 @@
   
   /* Para el efecto de vidrio esmerilado */
   .backdrop-blur-sm {
-    backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
   }
   
   .backdrop-blur-md {
-    backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
   }
   
   .backdrop-blur-lg {
-    backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
   }
 }
